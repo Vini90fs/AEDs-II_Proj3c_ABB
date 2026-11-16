@@ -8,6 +8,8 @@ public class ABB<K, V> implements IMapeamento<K, V>{
 	private long comparacoes;
 	private long inicio;
 	private long termino;
+	private No<K, V> raiz;
+	private Comparator<K> comparador;
 	
 	/**
 	 * Construtor da classe.
@@ -16,7 +18,67 @@ public class ABB<K, V> implements IMapeamento<K, V>{
 	public ABB(Comparator<K> comparador) {
 
 	}
+
+	public ABB() {
+		this.comparador = (Comparator<K>) Comparator.naturalOrder();
+	}
 	
+	public Boolean vazia(){
+		if(raiz == null){
+			return true;
+		}
+		return false;
+	}
+
+	public V pesquisar(K chave){
+		V valor;
+
+		if(chave == null){
+			throw new IllegalArgumentException("sdhbshdgb");
+		}
+
+		valor = pesquisar(raiz, chave);
+
+		return valor;
+	}
+
+	private V pesquisar(No<K, V> raiz, K chave){
+		if(vazia()){
+			throw new IllegalArgumentException("owuegiwuf");
+		}
+
+		final int result = comparador.compare(chave, raiz.getChave());
+
+		if(result == 0){
+			return raiz.getItem();
+		}
+		if(result < 0){
+			return pesquisar(raiz.getEsquerda(), chave);
+		}
+		if(result > 0){
+			return pesquisar(raiz.getDireita(), chave);
+		}
+		return null;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	@Override
 	public long getComparacoes() {
 		return comparacoes;
